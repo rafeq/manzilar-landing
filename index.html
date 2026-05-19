@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="MANZILAR is a local marketplace app for home businesses, customers, and delivery teams in Israel."
+  >
+  <meta property="og:title" content="MANZILAR">
+  <meta
+    property="og:description"
+    content="A warm local marketplace for homemade food, home businesses, and neighborhood delivery."
+  >
+  <meta property="og:type" content="website">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="MANZILAR">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.json">
+  <title>MANZILAR</title>
+  <style>
+    :root {
+      --terracotta: #bf5b3d;
+      --apricot: #f2b178;
+      --cocoa: #4f2f25;
+      --cream: #fff8f1;
+      --sand: #f7ecde;
+      --sage: #8e9f7b;
+      --white: #ffffff;
+      --shadow: 0 24px 60px rgba(99, 53, 35, 0.12);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      color: var(--cocoa);
+      background:
+        radial-gradient(circle at top left, rgba(242, 177, 120, 0.38), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(142, 159, 123, 0.2), transparent 22%),
+        linear-gradient(180deg, #fffaf5 0%, #fff3e5 100%);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 0 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      font-size: 1rem;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--terracotta), var(--apricot));
+      box-shadow: 0 14px 30px rgba(191, 91, 61, 0.24);
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      font-weight: 900;
+    }
+
+    .topbar-note {
+      color: rgba(79, 47, 37, 0.72);
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-copy,
+    .hero-card,
+    .section-card {
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      padding: 42px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(242, 177, 120, 0.24);
+      color: var(--terracotta);
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 5vw, 4.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-copy p {
+      margin: 18px 0 0;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: rgba(79, 47, 37, 0.78);
+      max-width: 58ch;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .button {
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 20px;
+      font-weight: 700;
+      font-size: 0.98rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .button-primary {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--terracotta), #d7824d);
+      box-shadow: 0 16px 26px rgba(191, 91, 61, 0.24);
+    }
+
+    .button-secondary {
+      background: rgba(142, 159, 123, 0.14);
+      color: var(--cocoa);
+    }
+
+    .hero-card {
+      padding: 22px;
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+
+    .showcase {
+      border-radius: 24px;
+      padding: 22px;
+      min-height: 260px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.02)),
+        linear-gradient(135deg, #c86143, #f1ba84 52%, #f8e0c0);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .showcase::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -55px auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .showcase-label {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.18);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .showcase h2 {
+      margin: 16px 0 10px;
+      font-size: 1.9rem;
+      line-height: 1.05;
+    }
+
+    .showcase p {
+      margin: 0;
+      max-width: 26ch;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .mini-card {
+      border-radius: var(--radius-md);
+      background: var(--sand);
+      padding: 16px;
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+    }
+
+    .mini-card span {
+      color: rgba(79, 47, 37, 0.68);
+      font-size: 0.92rem;
+    }
+
+    .sections {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .section-card {
+      padding: 24px;
+    }
+
+    .section-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.15rem;
+    }
+
+    .section-card p {
+      margin: 0;
+      line-height: 1.65;
+      color: rgba(79, 47, 37, 0.78);
+    }
+
+    .proof {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .proof .section-card {
+      padding: 28px;
+    }
+
+    .proof ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+      color: rgba(79, 47, 37, 0.82);
+      line-height: 1.75;
+    }
+
+    .footer {
+      margin-top: 26px;
+      padding: 20px 4px 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: rgba(79, 47, 37, 0.66);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 920px) {
+      .hero,
+      .proof,
+      .sections {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .hero-card,
+      .section-card {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 20px, 1120px);
+        padding-top: 18px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero-copy {
+        padding: 24px 20px;
+      }
+
+      .hero-card,
+      .section-card {
+        padding: 20px;
+      }
+
+      .mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">M</div>
+        <span>MANZILAR</span>
+      </div>
+      <div class="topbar-note">Local marketplace app for home businesses in Israel</div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">Homemade. Nearby. Trusted.</div>
+          <h1>Support home businesses from your own town.</h1>
+          <p>
+            MANZILAR connects customers with local home businesses for meals, sweets,
+            baked goods, practical rentals, and neighborhood delivery. It is designed
+            for customers, sellers, couriers, and owners in one simple mobile app.
+          </p>
+          <div class="cta-row">
+            <a class="button button-primary" href="#contact">
+              Contact MANZILAR
+            </a>
+            <a class="button button-secondary" href="#proof">
+              Verification flow
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="showcase">
+            <span class="showcase-label">Mobile-first marketplace</span>
+            <h2>Home kitchens, deliveries, and local trust.</h2>
+            <p>
+              MANZILAR helps customers discover nearby sellers and lets local operators
+              manage products, orders, dispatch, and notifications.
+            </p>
+          </div>
+
+          <div class="mini-grid">
+            <div class="mini-card">
+              <strong>Customers</strong>
+              <span>Browse by town, order easily, save delivery addresses.</span>
+            </div>
+            <div class="mini-card">
+              <strong>Sellers</strong>
+              <span>Manage products, availability, orders, and business details.</span>
+            </div>
+            <div class="mini-card">
+              <strong>Couriers</strong>
+              <span>Receive dispatch updates, pickup details, and delivery routes.</span>
+            </div>
+            <div class="mini-card">
+              <strong>Owners</strong>
+              <span>Assign roles, review requests, and support the marketplace.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sections" id="scope">
+        <article class="section-card">
+          <h3>For local customers</h3>
+          <p>
+            Customers choose their town, discover local sellers, place orders, and
+            follow updates from checkout to delivery in one flow.
+          </p>
+        </article>
+        <article class="section-card">
+          <h3>For home businesses</h3>
+          <p>
+            Sellers can present products clearly, set availability, manage prices,
+            update order status, and coordinate delivery handoff.
+          </p>
+        </article>
+        <article class="section-card">
+          <h3>For secure access</h3>
+          <p>
+            SMS is used only for user-requested one-time account verification and
+            login verification inside the mobile app.
+          </p>
+        </article>
+      </section>
+
+      <section class="proof" id="proof">
+        <article class="section-card">
+          <h3>How MANZILAR uses SMS</h3>
+          <ul>
+            <li>Only for one-time signup and login verification codes.</li>
+            <li>Only after the user enters their own phone number and requests the code.</li>
+            <li>No promotional campaigns, no bulk messaging, and no purchased lists.</li>
+            <li>Initial rollout is limited to Israel.</li>
+          </ul>
+        </article>
+
+        <article class="section-card">
+          <h3>Current product scope</h3>
+          <ul>
+            <li>Town-based marketplace browsing</li>
+            <li>Customer, seller, courier, and owner roles</li>
+            <li>Order tracking and dispatch handoff</li>
+            <li>Invitation and role-management workflows</li>
+          </ul>
+          <p style="margin-top: 18px;">
+            Contact:
+            <a href="mailto:manzilarapp@gmail.com">manzilarapp@gmail.com</a>
+          </p>
+        </article>
+      </section>
+
+      <section class="proof" id="contact" style="margin-top: 20px;">
+        <article class="section-card" style="grid-column: 1 / -1;">
+          <h3>Contact MANZILAR</h3>
+          <p>
+            For product information, verification flow details, or partnership questions,
+            contact us at
+            <a href="mailto:manzilarapp@gmail.com">manzilarapp@gmail.com</a>.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>MANZILAR mobile application</span>
+      <span>
+        Built for local commerce, home businesses, and trusted delivery ·
+        <a href="mailto:manzilarapp@gmail.com">manzilarapp@gmail.com</a>
+      </span>
+    </footer>
+  </div>
+</body>
+</html>
